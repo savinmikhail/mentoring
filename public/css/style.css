@@ -1,7 +1,8 @@
 *{margin: 0;}
 
 .header {
-    background: #57a958;
+    background-color: #782ec7;
+    /*background: #57a958;*/
     text-align: left;
     font-size: 20px;
     font-weight: bold;
@@ -22,8 +23,9 @@
     border: 1px solid gray;
 }
 
-#editor { height: 400px;
-    font-size: 20px;}
+#editor {
+    height: 400px;
+   }
 
 .button-container {
     text-align: right;
@@ -31,7 +33,7 @@
 }
 
 .btn {
-    background: #57a958;
+    background: #0d6efc;
     color: white;
     padding: 8px;
     border: 0;
@@ -44,4 +46,30 @@
     width: 99%;
     resize: none;
 
+}
+/* Контейнер для разделения экрана */
+.split-screen-container {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+/* Контейнер с теорией */
+.theory-container {
+    flex: 1;
+    padding: 20px;
+    background-color: #f4f6fa;
+}
+
+/* Контейнер с редактором кода */
+.editor-container {
+    flex: 1;
+    padding: 20px;
+    background-color: #f4f6fa;
+}
+
+/* Необязательные стили для самого редактора кода */
+.editor {
+    height: 500px;
+    /* Добавьте дополнительные стили для редактора здесь */
 }
