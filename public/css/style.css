@@ -39,7 +39,7 @@
     border: 0;
 }
 
-.output {
+.output, .shell-output, .tests-output {
     padding: 4px;
     border: 2px solid gray;
     min-height: 100px;
