@@ -64,42 +64,26 @@
             url: "/com",
             method: "POST",
             data: {
-                {{--"id" : {{$lesson->id}},--}}
+                "id" : {{$lesson->id}},
                 code: editor.getSession().getValue(),
                 "_token": "{{ csrf_token() }}",
             },
 
             success: function(response) {
-                console.log(response);
-                var jsonDataStart = response.indexOf('{'); // Find the start of JSON
-                var jsonDataEnd = response.lastIndexOf('}'); // Find the end of JSON
+                try {
+                    var parsedData = JSON.parse(response); // Parse JSON
 
-
-                if (jsonDataStart !== -1 && jsonDataEnd !== -1) {
-                    var jsonData = response.substring(jsonDataStart, jsonDataEnd + 1); // Extract JSON
-                    try {
-                        var parsedData = JSON.parse(jsonData); // Parse JSON
-                        console.log(parsedData.shell);
-                        console.log(parsedData.tests);
-                        $(".shell-output").text(parsedData.shell.toString());
-                        $(".tests-output").text(parsedData.tests.toString());
-                    } catch (error) {
-                        console.error("Error parsing JSON:", error);
-                    }
-                } else {
-                    // Handle non-JSON response
-                    var intStart = response.indexOf('int(');
-                    var intEnd = response.indexOf(')');
-
-                    if (intStart !== -1 && intEnd !== -1) {
-                        var intValue = response.substring(intStart + 4, intEnd);
-                        console.log("Value:", intValue);
-                        // Do something with intValue
-                    } else {
-                        console.error("JSON data not found in response");
-                    }
+                    // Access properties directly
+                    console.log(parsedData.shell);
+                    console.log(parsedData.tests);
+                    $(".shell-output").text(parsedData.shell.toString());
+                    $(".tests-output").text(parsedData.tests.toString());
+                } catch (error) {
+                    console.error("Error parsing JSON:", error);
                 }
             }
+
+
 
         });
     }
