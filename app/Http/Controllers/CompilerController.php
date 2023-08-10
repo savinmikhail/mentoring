@@ -24,14 +24,14 @@ class CompilerController extends Controller
 //       $dockerCommand = "docker run --rm -v $executionPath:$executionPath php:latest php $userCodeFile";
 //       $commandOutput = shell_exec($dockerCommand);
        // Execute tests
-//       $testClassName = "Tests\Unit\Lesson" . $request->id . "Test"; // This will be "Lesson1Test"
-//       $postAddTest = new $testClassName('');
-//       $testResult = $postAddTest->testUserProvidedFunction();
+       $testClassName = "Tests\Unit\Lesson" . $request->id . "Test"; // This will be "Lesson1Test"
+       $testClass = new $testClassName('');
+       $testResult = $testClass->testUserProvidedFunction();
 
        $output = shell_exec("/usr/local/bin/php $filePath 2>&1");
        $responseData = [
            'shell' => $output,
-           'tests' => 'sad'//$testResult,
+           'tests' => $testResult//$testResult,
        ];
        return response()->json($responseData);
 
@@ -46,11 +46,3 @@ class CompilerController extends Controller
     }
 
 }
-//<?
-//list($year1, $year2) = [2013, 2015];
-//function differ($year1, $year2)
-//{
-//    return abs($year1 - $year2);
-//}
-//
-//var_dump(differ($year1, $year2));

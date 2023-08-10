@@ -64,7 +64,7 @@
             url: "/com",
             method: "POST",
             data: {
-                "id" : {{$lesson->id}},
+                "id": {{$lesson->id}},
                 code: editor.getSession().getValue(),
                 "_token": "{{ csrf_token() }}",
             },
