@@ -1,15 +1,16 @@
 <?php
-
 namespace Tests\Unit;
-
 use PHPUnit\Framework\TestCase;
 
 class Lesson2Test extends TestCase
 {
     public function testUserProvidedFunction()
     {
-        require_once ("/var/www/html/storage/logs/code.php");
-        $output = shell_exec("/usr/local/bin/php /var/www/html/storage/logs/code.php 2>&1");
+        $outputFilePath = "/var/www/html/storage/logs/output.txt"; // Path to the output file
+
+        // Read the contents of the file into a variable
+        $output = file_get_contents($outputFilePath);
+
         return $output === "Hello World" ? true : false;
     }
 }

@@ -15,27 +15,28 @@ class CompilerController extends Controller
    {
        $code = $request->all();
        $code = $code['code'];
-
-
        $filePath = "/var/www/html/storage/logs/code.php";
+       $outputFilePath = "/var/www/html/storage/logs/output.txt"; // Path to the output file
        file_put_contents($filePath, $code);
 
-//       // Execute user's code within a Docker container
 //       $dockerCommand = "docker run --rm -v $executionPath:$executionPath php:latest php $userCodeFile";
 //       $commandOutput = shell_exec($dockerCommand);
+
+       $command = "/usr/local/bin/php $filePath > $outputFilePath 2>&1";
+
+       shell_exec($command);
+       $shellResponse = file_get_contents($outputFilePath);
        // Execute tests
        $testClassName = "Tests\Unit\Lesson" . $request->id . "Test"; // This will be "Lesson1Test"
        $testClass = new $testClassName('');
        $testResult = $testClass->testUserProvidedFunction();
 
-       $output = shell_exec("/usr/local/bin/php $filePath 2>&1");
        $responseData = [
-           'shell' => $output,
-           'tests' => $testResult//$testResult,
+           'shell' => $shellResponse,
+           'tests' => $testResult
        ];
        return response()->json($responseData);
-
-   }
+    }
     public function showLesson($id)
     {
         $lesson = Lesson::find($id);

@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Codeboard Online IDE</title>
-    {{--    <meta name="csrf-token" content="{{ csrf_token() }}" />--}}
-
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
@@ -12,11 +10,8 @@
 <div class="split-screen-container">
     <div class="theory-container">
 
-        <!-- Добавьте ваш контент с теорией здесь -->
-        <!-- Например: -->
         <h2>{{$lesson->title}}</h2>
         <p>{{$lesson->text}}</p>
-
         <img src="/images/{{$lesson->image}}.png" width="300">
 
     </div>
@@ -38,7 +33,7 @@
 </div>
 <div class="button-container">
     @if($lesson->id-1 !== 0)
-    <a href="{{ route('showLesson', ['id' => $lesson->id-1]) }}" class="btn"> Предыдущий </a>
+        <a href="{{ route('showLesson', ['id' => $lesson->id-1]) }}" class="btn"> Предыдущий </a>
     @endif
     <a href="{{ route('showLesson', ['id' => $lesson->id+1]) }}" class="btn"> Следующий </a>
 
@@ -70,21 +65,12 @@
             },
 
             success: function(response) {
-                try {
-                    var parsedData = JSON.parse(response); // Parse JSON
-
-                    // Access properties directly
-                    console.log(parsedData.shell);
-                    console.log(parsedData.tests);
-                    $(".shell-output").text(parsedData.shell.toString());
-                    $(".tests-output").text(parsedData.tests.toString());
-                } catch (error) {
-                    console.error("Error parsing JSON:", error);
-                }
+                var parsedData = response; // Parse JSON
+                console.log(parsedData.shell);
+                console.log(parsedData.tests);
+                $(".shell-output").text(parsedData.shell.toString());
+                $(".tests-output").text(parsedData.tests.toString());
             }
-
-
-
         });
     }
 </script>
