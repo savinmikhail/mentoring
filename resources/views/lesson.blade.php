@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
-
+@include('layout.navbar')
 <div class="split-screen-container">
     <div class="theory-container">
 
@@ -16,6 +16,7 @@
         <!-- Например: -->
         <h2>{{$lesson->title}}</h2>
         <p>{{$lesson->text}}</p>
+
         <img src="/images/{{$lesson->image}}.png" width="300">
 
     </div>
@@ -63,13 +64,16 @@
             url: "/com",
             method: "POST",
             data: {
+                {{--"id" : {{$lesson->id}},--}}
                 code: editor.getSession().getValue(),
                 "_token": "{{ csrf_token() }}",
             },
 
             success: function(response) {
+                console.log(response);
                 var jsonDataStart = response.indexOf('{'); // Find the start of JSON
                 var jsonDataEnd = response.lastIndexOf('}'); // Find the end of JSON
+
 
                 if (jsonDataStart !== -1 && jsonDataEnd !== -1) {
                     var jsonData = response.substring(jsonDataStart, jsonDataEnd + 1); // Extract JSON
@@ -98,7 +102,6 @@
             }
 
         });
-
     }
 </script>
 

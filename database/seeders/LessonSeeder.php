@@ -45,7 +45,7 @@ print_r('Dragon's mother');
 Такая программа не будет работать. С точки зрения PHP строчка началась с",
             'image' => 'cat',
             'code' => '[[PHP_CODE]] echo "King in the North!";',
-            'module_id' => 2,
+            'module_id' => 1,
 
         ]);
     }
