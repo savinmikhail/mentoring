@@ -4,7 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Lesson;
 use Illuminate\Http\Request;
-use Tests\Unit\UserTest;
+use Tests\Unit\Lesson1Test;
+use Tests\Unit\Lesson2Test;
 
 class CompilerController extends Controller
 {
@@ -20,8 +21,9 @@ class CompilerController extends Controller
 //       $dockerCommand = "docker run --rm -v $executionPath:$executionPath php:latest php $userCodeFile";
 //       $commandOutput = shell_exec($dockerCommand);
        // Execute tests
-       $postAddTest = new UserTest('UserTest');
-       $testResult = $postAddTest->testUserProvidedFunction();
+       $testClassName = "Tests\Unit\Lesson" . $request->id . "Test"; // This will be "Lesson1Test"
+       $testClass = new $testClassName('');
+       $testResult = $testClass->testUserProvidedFunction();
 
        $output = shell_exec("/usr/local/bin/php $filePath 2>&1");
        $responseData = [
