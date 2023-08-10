@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Codeboard Online IDE</title>
-{{--    <meta name="csrf-token" content="{{ csrf_token() }}" />--}}
+    {{--    <meta name="csrf-token" content="{{ csrf_token() }}" />--}}
 
-    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <body>
 
 <div class="split-screen-container">
     <div class="theory-container">
+
         <!-- Добавьте ваш контент с теорией здесь -->
         <!-- Например: -->
-        <h2>PHP: Условная конструкция (if)</h2>
-        <p>Задача предиката — получить ответ на вопрос, но обычно этого недостаточно и нужно выполнить определенное действие в зависимости от ответа.
-            Напишем функцию, которая определяет тип переданного предложения. Для начала она будет отличать обычные предложения от вопросительных: </p>
+        <h2>{{$lesson->title}}</h2>
+        <p>{{$lesson->text}}</p>
+        <img src="/images/{{$lesson->image}}.png" width="300">
+
     </div>
     <div class="editor-container">
         <div class="header"> PHP Online IDE </div>
         <form id="csrf">
             @csrf
-            <div class="editor" id="editor"></div>
+            <div class="editor" id="editor">{{$lesson->code}}</div>
         </form>
         <div class="button-container">
             <button class="btn" onclick="executeCode()"> Запустить </button>
@@ -31,10 +33,18 @@
         <div class="tests-output"></div>
 
     </div>
+
+</div>
+<div class="button-container">
+    @if($lesson->id-1 !== 0)
+    <a href="{{ route('showLesson', ['id' => $lesson->id-1]) }}" class="btn"> Предыдущий </a>
+    @endif
+    <a href="{{ route('showLesson', ['id' => $lesson->id+1]) }}" class="btn"> Следующий </a>
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="js/lib/ace.js"></script>
+<script src="../js/lib/ace.js"></script>
 
 
 <script >

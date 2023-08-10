@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompilerController;
+use App\Http\Controllers\ModuleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,8 +14,9 @@ use App\Http\Controllers\CompilerController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/lessons/{id}', [CompilerController::class, 'showLesson'])->name('showLesson');
+Route::get('/', [ModuleController::class, 'index'])->name('showModule');
 
 Route::post('/com' ,[CompilerController::class, 'compile'])->name('compile');
+
+

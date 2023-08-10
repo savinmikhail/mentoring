@@ -1,40 +1,57 @@
-<nav class="navbar bg-light border-bottom">
-    <div class="container justify-content-center">
-        <div class="col-lg-6">
-            <a class="ml-0 navbar-brand text-primary" href="">
-                Успешный успех
-            </a>
-            <span class="navbar-text d-none d-md-inline">тут будет описание сайта</span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Codeboard Online IDE</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    {{--    <meta name="csrf-token" content="{{ csrf_token() }}" />--}}
 
-        </div>
-        <div class="col-1 d-none d-md-block">
-            <ul class="nav float-end navbar-nav">
-                <li class="nav-item dropdown text-end">
-                    <a href="" class="btn btn-outline-success" type="submit">?</a>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">Codeboard Online IDE</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Главная</a>
                 </li>
-                <li class="nav-item dropdown text-end">
-                    @auth
-                        <a href="" class="btn btn-outline-success" type="submit">Моё обучение</a>
-                    @endauth
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Курсы</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Профиль</a>
+                </li>
+                <!-- Добавьте другие пункты меню по вашему усмотрению -->
             </ul>
         </div>
-        <div class="col-1">
-            <ul class="nav float-start navbar-nav">
-                    @auth
-                        <span class="navbar-text">
-                            {{ Auth::user()->name }}
-                        </span>
-                    @endauth
-            </ul>
+    </nav>
+</header>
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <!-- Ваш контент с теорией -->
         </div>
-        <div class="col-1">
-            @auth
-                <a href="" class="btn btn-outline-success" type="submit">Выйти</a>
-            @endauth
-            @guest
-                 <a href="" class="btn btn-outline-success" type="submit">Войти</a>
-            @endguest
+        <div class="col-md-6">
+            <!-- Ваш контент с редактором и кнопками -->
         </div>
     </div>
-</nav>
+</div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="../js/lib/ace.js"></script>
+
+<script>
+    // Ваш JavaScript код
+</script>
+
+</body>
+</html>

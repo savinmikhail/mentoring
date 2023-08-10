@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lesson;
 use Illuminate\Http\Request;
 use Tests\Unit\UserTest;
 
@@ -30,6 +31,14 @@ class CompilerController extends Controller
        return response()->json($responseData);
 
    }
+    public function showLesson($id)
+    {
+        $lesson = Lesson::find($id);
+
+        return view('lesson', [
+            'lesson' => $lesson,
+        ]);
+    }
 
 }
 //<?
