@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CompilerController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\AuthController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +14,18 @@ use App\Http\Controllers\ModuleController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/signin', function ()
+{
+    return view('signIn');
+});
 
+Route::get('/signup', function ()
+{
+    return view('signUp');
+});
+
+Route::post('/signun', [AuthController::class, 'signUp'])->name('signUp');
+Route::post('/signin', [AuthController::class, 'signIn'])->name('signIp');
 Route::get('/lessons/{id}', [CompilerController::class, 'showLesson'])->name('showLesson');
 Route::get('/', [ModuleController::class, 'index'])->name('showModule');
 
