@@ -29,11 +29,7 @@ class AuthController extends Controller
             Auth::login($user);
             return redirect()->route('showModule');
         } else {
-            echo 'test';
+            return back()->withErrors(['login_error' => 'Неправильный логин или пароль.']);
         }
-
-
-
-
     }
 }

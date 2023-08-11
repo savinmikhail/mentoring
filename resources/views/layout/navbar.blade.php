@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <title>Codeboard Online IDE</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    {{--    <meta name="csrf-token" content="{{ csrf_token() }}" />--}}
+    {{--    <meta name="csrf-token" content="{{ csrf_token() }}" /      >--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
-    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.cs  s">
 </head>
 <body>
 
@@ -28,7 +28,9 @@
                     <a class="nav-link" href="#">Курсы</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Профиль</a>
+                    @auth
+                        <a href="{{ route('logout') }}" class="btn btn-outline-success" type="submit">Выйти</a>
+                    @endauth
                 </li>
                 <!-- Добавьте другие пункты меню по вашему усмотрению -->
             </ul>

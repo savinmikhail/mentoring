@@ -28,25 +28,43 @@
    }
 
 .button-container {
-    text-align: right;
-    padding: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .btn {
-    background: #0d6efc;
-    color: white;
-    padding: 8px;
-    border: 0;
+    font-size: 32px;
+    padding: 10px 20px;
+    background-color: #3867d6;
+    border: none;
+    outline: 3px solid #222;
+    outline-offset: -5px;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all .2s;
+}
+.btn:hover{
+    background-color: #45aaf2;
+    outline-offset: 2px;
+    outline-color: #45aaf2;
 }
 
 .output, .shell-output, .tests-output {
-    padding: 4px;
+    padding: 10px;
     border: 2px solid gray;
     min-height: 100px;
     width: 99%;
     resize: none;
-
+    background-color: #141414;
+    color: white;
+    margin-top: 10px;
+    border-radius: 8px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
 }
+
 /* Контейнер для разделения экрана */
 .split-screen-container {
     display: flex;

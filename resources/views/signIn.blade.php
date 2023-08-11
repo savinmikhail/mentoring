@@ -24,6 +24,11 @@
                     <label for="password" class="form-label">Пароль</label>
                     <input type="password" name="password" class="form-control" placeholder="Пароль" required>
                 </div>
+                @if ($errors->has('login_error'))
+                    <div class="alert alert-danger">
+                        {{ $errors->first('login_error') }}
+                    </div>
+                @endif
                 <button type="submit" class="btn btn-primary">Войти</button>
             </form>
         </div>
