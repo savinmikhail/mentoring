@@ -65,11 +65,30 @@
             },
 
             success: function(response) {
-                var parsedData = response; // Parse JSON
-                console.log(parsedData.shell);
-                console.log(parsedData.tests);
-                $(".shell-output").text(parsedData.shell.toString());
-                $(".tests-output").text(parsedData.tests.toString());
+                try {
+                    console.log(response.shell);
+                    console.log(JSON.parse(response));
+                    $(".shell-output").text(response.shell.toString());
+                    $(".tests-output").text(response.tests.toString());
+                    $(".tests-output").text(JSON.parse(response.message));
+                } catch (error) {
+                    console.log("An error occurred while parsing JSON:", error);
+
+                    // Display the error message from the response
+                    var errorResponse = JSON.parse(response); // Try parsing JSON again
+                    var errorMessage = errorResponse.message;
+                    $(".shell-output").text("Error: " + errorMessage);
+                    // console.log("An error occurred while parsing JSON:", error);
+                    // var responseLines = response.split('{');
+                    // var limitedResponseShell = responseLines.slice(0, 1).join('\n');
+                    // $(".shell-output").text(limitedResponseShell);
+                    //  console.log(response);
+
+                    // var responseLine = response.split('"');
+                    // var limitedResponseTests = responseLine.slice(3, 4).join('\n');
+                    // console.log(limitedResponseTests);
+                    // $(".tests-output").text(limitedResponseTests);
+                }
             }
         });
     }
