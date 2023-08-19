@@ -77,6 +77,8 @@
     flex: 1;
     padding: 20px;
     background-color: #f4f6fa;
+    max-height: 400px;
+    overflow-y: auto;
 }
 
 /* Контейнер с редактором кода */

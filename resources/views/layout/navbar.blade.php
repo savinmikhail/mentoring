@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
-    <link rel="stylesheet" type="text/css" href="../css/style.cs  s">
+
 </head>
 <body>
 
@@ -32,21 +32,13 @@
                         <a href="{{ route('logout') }}" class="btn btn-outline-success" type="submit">Выйти</a>
                     @endauth
                 </li>
-                <!-- Добавьте другие пункты меню по вашему усмотрению -->
             </ul>
         </div>
     </nav>
 </header>
 
 <div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <!-- Ваш контент с теорией -->
-        </div>
-        <div class="col-md-6">
-            <!-- Ваш контент с редактором и кнопками -->
-        </div>
-    </div>
+
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>

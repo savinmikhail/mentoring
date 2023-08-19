@@ -4,16 +4,30 @@
     <meta charset="UTF-8">
     <title>Codeboard Online IDE</title>
     <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <style>
+        .split-screen-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-left: 20px;
+            margin-right: 20px;
+            border-radius: 10px; /* Задайте желаемый радиус скругления */
+            overflow: hidden; /* Чтобы контент не выходил за границы с скругленными углами */
+        }
+        .theory-container {
+            flex: 1;
+            padding: 20px;
+            max-height: 800px;
+            overflow-y: auto;
+        }
+
+
+    </style>
 </head>
 <body>
 @include('layout.navbar')
 <div class="split-screen-container">
-    <div class="theory-container">
-
-        <h2>{{$lesson->title}}</h2>
-        <p>{{$lesson->text}}</p>
-        <img src="/images/{{$lesson->image}}.png" width="300">
-
+    <div class="theory-container scrollable">
+        <p>{!!$lesson->text!!}</p>
     </div>
     <div class="editor-container">
         <div class="header"> PHP Online IDE </div>
@@ -63,33 +77,44 @@
                 code: editor.getSession().getValue(),
                 "_token": "{{ csrf_token() }}",
             },
-
             success: function(response) {
                 try {
                     console.log(response.shell);
-                    console.log(JSON.parse(response));
+                    console.log(response);
                     $(".shell-output").text(response.shell.toString());
-                    $(".tests-output").text(response.tests.toString());
-                    $(".tests-output").text(JSON.parse(response.message));
+                    $(".tests-output").text(response.tests.result.toString());
                 } catch (error) {
-                    console.log("An error occurred while parsing JSON:", error);
-
-                    // Display the error message from the response
-                    var errorResponse = JSON.parse(response); // Try parsing JSON again
-                    var errorMessage = errorResponse.message;
+                    console.log("An error occurred while processing the response:", error);
+                    var errorMessage = response.message; // Полагая, что message содержит сообщение об ошибке.
                     $(".shell-output").text("Error: " + errorMessage);
-                    // console.log("An error occurred while parsing JSON:", error);
-                    // var responseLines = response.split('{');
-                    // var limitedResponseShell = responseLines.slice(0, 1).join('\n');
-                    // $(".shell-output").text(limitedResponseShell);
-                    //  console.log(response);
-
-                    // var responseLine = response.split('"');
-                    // var limitedResponseTests = responseLine.slice(3, 4).join('\n');
-                    // console.log(limitedResponseTests);
-                    // $(".tests-output").text(limitedResponseTests);
                 }
             }
+            // success: function(response) {
+            //     try {
+            //         console.log(response.shell);
+            //         console.log(JSON.parse(response));
+            //         $(".shell-output").text(response.shell.toString());
+            //         $(".tests-output").text(response.tests.toString());
+            //         $(".tests-output").text(JSON.parse(response.message));
+            //     } catch (error) {
+            //         console.log("An error occurred while parsing JSON:", error);
+            //
+            //         // Display the error message from the response
+            //         var errorResponse = JSON.parse(response); // Try parsing JSON again
+            //         var errorMessage = errorResponse.message;
+            //         $(".shell-output").text("Error: " + errorMessage);
+            //         // console.log("An error occurred while parsing JSON:", error);
+            //         // var responseLines = response.split('{');
+            //         // var limitedResponseShell = responseLines.slice(0, 1).join('\n');
+            //         // $(".shell-output").text(limitedResponseShell);
+            //         //  console.log(response);
+            //
+            //         // var responseLine = response.split('"');
+            //         // var limitedResponseTests = responseLine.slice(3, 4).join('\n');
+            //         // console.log(limitedResponseTests);
+            //         // $(".tests-output").text(limitedResponseTests);
+            //     }
+            // }
         });
     }
 </script>

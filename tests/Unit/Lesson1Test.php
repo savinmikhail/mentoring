@@ -13,7 +13,8 @@ class Lesson1Test extends TestCase
             ob_start(); // Start output buffering
             require "/var/www/html/storage/logs/code.php"; // Include user code
             $result = differ(2012, 2015);
-            if ( $result === 3){
+
+            if ($result === 3){
                 $output = ob_get_clean(); // Get the buffered output
                 return ['result' => true, 'output' => $output];
             }
