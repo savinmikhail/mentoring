@@ -2,32 +2,43 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\Auth\AuthenticationServiceInterface;
+use App\Contracts\Auth\RegistrationServiceInterface;
 use App\Http\Requests\SignInRequest;
-use App\Http\Requests\UserRequest;
-use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\SignUpRequest;
+use App\Services\Auth\AuthenticationService;
+use App\Services\Auth\RegistrationService;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends Controller
 {
-    public function signUp(UserRequest $request)
+    protected $registrationService;
+    protected $authenticationService;
+
+    public function __construct(
+        RegistrationServiceInterface $registrationService,
+        AuthenticationServiceInterface $authenticationService
+    ) {
+        $this->registrationService = $registrationService;
+        $this->authenticationService = $authenticationService;
+    }
+
+    public function signUp(SignUpRequest $request)
     {
-        $validateData = $request->validationData();
-        $validateData['password']  = Hash::make($validateData['password']);
-        $user = User::create($validateData);
+        $user = $this->registrationService->register($request->validated());
         Auth::login($user);
-        return redirect()->route('showModule');
+
+        return Redirect::route('showModule');
     }
 
     public function signIn(SignInRequest $request)
     {
-        $credentials = $request->validated();
+        $user = $this->authenticationService->authenticate($request->validated());
 
-        if(Auth::attempt($credentials)){
-            $user = User::where('email', $credentials['email'])->first();
+        if ($user) {
             Auth::login($user);
-            return redirect()->route('showModule');
+            return Redirect::route('showModule');
         } else {
             return back()->withErrors(['login_error' => 'Неправильный логин или пароль.']);
         }
