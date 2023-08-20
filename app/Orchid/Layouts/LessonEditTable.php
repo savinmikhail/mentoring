@@ -38,7 +38,6 @@ class LessonEditTable extends Table
                     ->parameters(['lesson_id' => $lesson->id])
                     ->icon('trash');
             }),
-
         ];
     }
 }

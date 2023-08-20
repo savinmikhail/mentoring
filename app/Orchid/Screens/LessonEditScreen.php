@@ -3,9 +3,13 @@
 namespace App\Orchid\Screens;
 
 use App\Http\Requests\LessonRequest;
+use App\Http\Requests\LessonTestRequest;
 use App\Models\Lesson;
+use App\Models\LessonTest;
 use App\Models\Module;
 use App\Orchid\Layouts\LessonEditTable;
+use App\Orchid\Layouts\UpdateOrder;
+use Orchid\Screen\Layouts\Modal;
 use Orchid\Support\Facades\Alert;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\Input;
@@ -51,6 +55,7 @@ class LessonEditScreen extends Screen
     {
         return [
             ModalToggle::make('Добавление урока')->modal('addLesson', )->method('addLesson'),
+
         ];
     }
 
@@ -70,14 +75,23 @@ class LessonEditScreen extends Screen
                 Input::make('image')->title('Изображение'),
                 Input::make('code')->title('Начальный код'),
             ]))->title('Добавление урока'),
+
         ];
     }
+
 
     public function addLesson(LessonRequest $request)
     {
         $validatedData = $request->validated();
         Lesson::create($validatedData);
         Alert::info('Урок добавлен');
+    }
+
+    public function addLessonTest(LessonTestRequest $request, int $lesson_id)
+    {
+
+        $validatedData = $request->validated();
+        LessonTest::create(array_merge($validatedData, ['lesson_id' => $lesson_id]));
     }
 
     public function removeLesson(int $lesson_id)

@@ -40,7 +40,14 @@
         </form>
         <div class="button-container">
             <button class="btn" onclick="runCode()"> Запустить </button>
-            <button class="btn" onclick="runTests()"> Проверить тесты </button>
+
+            @if(!$lesson->manual_check)
+                <button class="btn" onclick="runTests()"> Проверить тесты </button>
+            @endif
+
+            @if($lesson->manual_check)
+                <button class="btn" onclick="send()"> Отправить на проверку </button>
+            @endif
         </div>
 
 
@@ -72,46 +79,39 @@
         editor.setFontSize(26);
         editor.session.setMode("ace/mode/php");
     }
-
-    function runTests() {
+    function executeAction(action) {
         $.ajax({
             url: "/com",
             method: "POST",
             data: {
                 "id": {{$lesson->id}},
                 code: editor.getSession().getValue(),
+                action: action, // Pass the action parameter
                 "_token": "{{ csrf_token() }}",
             },
             success: function(response) {
-                try {
-                    // $(".shell-output").text(response.shell.toString());
-                    $(".tests-output").text(response.tests.result.toString());
-                } catch (error) {
-                    console.log("An error occurred while processing the response:", error);
-                    var errorMessage = response.message; // Полагая, что message содержит сообщение об ошибке.
-                    $(".shell-output").text("Error: " + errorMessage);
+                if (action === "tests") {
+                    $(".tests-output").text(response.tests.toString());
+                } else if (action === "code") {
+                    $(".shell-output").text(response.shell.toString());
+                } else if (action === "send") {
+                    $(".tests-output").text(response.tests.toString());
                 }
             }
         });
     }
-    function runCode() {
 
-        $.ajax({
-
-            url: "/com",
-            method: "POST",
-
-            data: {
-                "id": {{$lesson->id}},
-                code: editor.getSession().getValue(),
-                "_token": "{{ csrf_token() }}",
-            },
-
-            success: function(response) {
-                $(".shell-output").text(response.shell.toString());
-            }
-        })
+    function runTests() {
+        executeAction("tests");
     }
+
+    function runCode() {
+        executeAction("code");
+    }
+    function send() {
+        executeAction("send");
+    }
+
 </script>
 
 </body>

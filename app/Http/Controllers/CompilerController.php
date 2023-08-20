@@ -17,18 +17,13 @@ class CompilerController extends Controller
 
     public function compile(Request $request)
     {
-        try {
-            $code = $request->input('code');
-            $lessonId = $request->input('id');
+        $code = $request->input('code');
+        $lessonId = $request->input('id');
+        $action = $request->input('action'); // Get the action parameter
 
-            $result = $this->codeCompiler->compileCode($code, $lessonId);
 
-            return response()->json($result);
-
-        } catch (\Exception $e) {
-            $errorMessage = $e->getMessage();
-            return response()->json(['error' => $errorMessage], 500);
-        }
+        $result = $this->codeCompiler->compileCode($code, $lessonId, $action);
+        return response()->json($result);
     }
 
     public function showLesson($id)

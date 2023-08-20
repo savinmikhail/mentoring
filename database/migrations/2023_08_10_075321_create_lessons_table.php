@@ -17,6 +17,7 @@ return new class extends Migration
             $table->text('text');
             $table->string('image')->nullable();
             $table->string('code')->nullable();
+            $table->boolean('manual_test')->default(false);
             $table->foreignId('module_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });

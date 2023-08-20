@@ -6,8 +6,6 @@ use App\Contracts\Auth\AuthenticationServiceInterface;
 use App\Contracts\Auth\RegistrationServiceInterface;
 use App\Http\Requests\SignInRequest;
 use App\Http\Requests\SignUpRequest;
-use App\Services\Auth\AuthenticationService;
-use App\Services\Auth\RegistrationService;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 
