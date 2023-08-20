@@ -1,7 +1,7 @@
 *{margin: 0;}
 
 .header {
-    background-color: #782ec7;
+    background-color: #3fbcc4;
     /*background: #57a958;*/
     text-align: left;
     font-size: 20px;
@@ -36,18 +36,14 @@
 .btn {
     font-size: 32px;
     padding: 10px 20px;
-    background-color: #3867d6;
+    background-color: #3fbcc4;
     border: none;
-    outline: 3px solid #222;
-    outline-offset: -5px;
-    cursor: pointer;
-    border-radius: 10px;
-    transition: all .2s;
+
 }
 .btn:hover{
-    background-color: #45aaf2;
+    background-color: #3fbcc4;
     outline-offset: 2px;
-    outline-color: #45aaf2;
+    outline-color: #3fbcc4;
 }
 
 .output, .shell-output, .tests-output {

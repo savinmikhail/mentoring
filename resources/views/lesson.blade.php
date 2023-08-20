@@ -10,14 +10,17 @@
             flex-wrap: wrap;
             margin-left: 20px;
             margin-right: 20px;
-            border-radius: 10px; /* Задайте желаемый радиус скругления */
-            overflow: hidden; /* Чтобы контент не выходил за границы с скругленными углами */
+            border-radius: 10px;
+            overflow: hidden;
         }
         .theory-container {
             flex: 1;
             padding: 20px;
             max-height: 800px;
             overflow-y: auto;
+        }
+        .split-screen-container {
+            box-shadow: 15px 15px 0px 0px rgba(77,189,198,0.2);
         }
 
 
@@ -36,8 +39,10 @@
             <div class="editor" id="editor">{{$lesson->code}}</div>
         </form>
         <div class="button-container">
-            <button class="btn" onclick="executeCode()"> Запустить </button>
+            <button class="btn" onclick="runCode()"> Запустить </button>
+            <button class="btn" onclick="runTests()"> Проверить тесты </button>
         </div>
+
 
         <div class="shell-output"></div>
         <div class="tests-output"></div>
@@ -68,7 +73,7 @@
         editor.session.setMode("ace/mode/php");
     }
 
-    function executeCode() {
+    function runTests() {
         $.ajax({
             url: "/com",
             method: "POST",
@@ -79,9 +84,7 @@
             },
             success: function(response) {
                 try {
-                    console.log(response.shell);
-                    console.log(response);
-                    $(".shell-output").text(response.shell.toString());
+                    // $(".shell-output").text(response.shell.toString());
                     $(".tests-output").text(response.tests.result.toString());
                 } catch (error) {
                     console.log("An error occurred while processing the response:", error);
@@ -89,33 +92,25 @@
                     $(".shell-output").text("Error: " + errorMessage);
                 }
             }
-            // success: function(response) {
-            //     try {
-            //         console.log(response.shell);
-            //         console.log(JSON.parse(response));
-            //         $(".shell-output").text(response.shell.toString());
-            //         $(".tests-output").text(response.tests.toString());
-            //         $(".tests-output").text(JSON.parse(response.message));
-            //     } catch (error) {
-            //         console.log("An error occurred while parsing JSON:", error);
-            //
-            //         // Display the error message from the response
-            //         var errorResponse = JSON.parse(response); // Try parsing JSON again
-            //         var errorMessage = errorResponse.message;
-            //         $(".shell-output").text("Error: " + errorMessage);
-            //         // console.log("An error occurred while parsing JSON:", error);
-            //         // var responseLines = response.split('{');
-            //         // var limitedResponseShell = responseLines.slice(0, 1).join('\n');
-            //         // $(".shell-output").text(limitedResponseShell);
-            //         //  console.log(response);
-            //
-            //         // var responseLine = response.split('"');
-            //         // var limitedResponseTests = responseLine.slice(3, 4).join('\n');
-            //         // console.log(limitedResponseTests);
-            //         // $(".tests-output").text(limitedResponseTests);
-            //     }
-            // }
         });
+    }
+    function runCode() {
+
+        $.ajax({
+
+            url: "/com",
+            method: "POST",
+
+            data: {
+                "id": {{$lesson->id}},
+                code: editor.getSession().getValue(),
+                "_token": "{{ csrf_token() }}",
+            },
+
+            success: function(response) {
+                $(".shell-output").text(response.shell.toString());
+            }
+        })
     }
 </script>
 

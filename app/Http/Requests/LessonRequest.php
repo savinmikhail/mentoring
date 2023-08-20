@@ -24,9 +24,9 @@ class LessonRequest extends FormRequest
         return [
            'title' => ['required'],
            'text' => ['required'],
-           'image' => ['required'],
-           'code' => ['required'],
-           'module_id' => ['required'],
+            'image' => ['nullable', 'string'],
+            'code' => ['nullable', 'string'],
+            'module_id' => ['required'],
         ];
     }
 }

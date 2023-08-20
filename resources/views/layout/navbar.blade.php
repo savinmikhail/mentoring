@@ -8,6 +8,18 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.2.0/highlight.min.js"></script>
     <script>hljs.highlightAll();</script>
+    <style>
+        body {
+            /* Установите фоновое изображение */
+            background-image: url('https://static.tildacdn.com/tild6235-6535-4332-b137-616435626434/2222.svg');
+            /* Настройте свойства фона */
+            background-size: cover; /* Настройте, как изображение покрывает фон */
+            background-repeat: no-repeat; /* Предотвратите повторение изображения на фоне */
+            background-attachment: fixed; /* Сделайте фон неподвижным при прокрутке */
+            /* Добавьте другие стили по необходимости */
+        }
+    </style>
+
 
 </head>
 <body>
