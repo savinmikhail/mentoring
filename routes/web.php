@@ -15,6 +15,7 @@ use App\Http\Controllers\AuthController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 Route::get('/signin', function ()
 {
     return view('signIn');

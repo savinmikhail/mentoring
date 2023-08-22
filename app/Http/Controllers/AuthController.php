@@ -11,15 +11,9 @@ use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends Controller
 {
-    protected $registrationService;
-    protected $authenticationService;
 
-    public function __construct(
-        RegistrationServiceInterface $registrationService,
-        AuthenticationServiceInterface $authenticationService
-    ) {
-        $this->registrationService = $registrationService;
-        $this->authenticationService = $authenticationService;
+    public function __construct(private RegistrationServiceInterface $registrationService, private AuthenticationServiceInterface $authenticationService)
+    {
     }
 
     public function signUp(SignUpRequest $request)

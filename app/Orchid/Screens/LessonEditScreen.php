@@ -8,12 +8,15 @@ use App\Models\Lesson;
 use App\Models\LessonTest;
 use App\Models\Module;
 use App\Orchid\Layouts\LessonEditTable;
-use App\Orchid\Layouts\UpdateOrder;
+use Orchid\Screen\Fields\Picture;
+use Orchid\Screen\Fields\Quill;
+use Orchid\Screen\Fields\Code;
+use Orchid\Screen\Fields\SimpleMDE;
+
 use Orchid\Screen\Layouts\Modal;
 use Orchid\Support\Facades\Alert;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Fields\Input;
-use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 
@@ -71,10 +74,11 @@ class LessonEditScreen extends Screen
             Layout::modal('addLesson', Layout::rows([
                 Input::make('module_id' )->type('hidden')->value($this->module->id),
                 Input::make('title')->title('Название'),
-                Input::make('text')->title('Текст'),
-                Input::make('image')->title('Изображение'),
-                Input::make('code')->title('Начальный код'),
-            ]))->title('Добавление урока'),
+//                Quill::make('text')->toolbar(["text", "color", "header", "list", "format", "media",])->title('Текст'),
+                SimpleMDE::make('text')->title('Текст'),
+                Picture::make('image')->title('Изображение'),
+                Code::make('code')->title('Начальный код')->height('150px')->language('clike'),
+            ]))->title('Добавление урока')->size(Modal::SIZE_LG),
 
         ];
     }

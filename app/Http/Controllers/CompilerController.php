@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Contracts\Compiler\CodeCompilerInterface;
 use App\Models\Lesson;
 use Illuminate\Http\Request;
+use Parsedown;
 
 class CompilerController extends Controller
 {
@@ -30,6 +31,9 @@ class CompilerController extends Controller
     {
         $lesson = Lesson::find($id);
 
+        $parseDown = new Parsedown();
+
+        $lesson->text = $parseDown->text($lesson->text);
         return view('lesson', [
             'lesson' => $lesson,
         ]);

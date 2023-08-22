@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('lesson_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('solution');
+            $table->integer('attempts');
             $table->timestamps();
         });
     }

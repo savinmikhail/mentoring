@@ -18,6 +18,7 @@
             padding: 20px;
             max-height: 800px;
             overflow-y: auto;
+            width: 40%;
         }
         .split-screen-container {
             box-shadow: 15px 15px 0px 0px rgba(77,189,198,0.2);
@@ -39,14 +40,14 @@
             <div class="editor" id="editor">{{$lesson->code}}</div>
         </form>
         <div class="button-container">
-            <button class="btn" onclick="runCode()"> Запустить </button>
+            <button class="btn border" onclick="runCode()"> Запустить </button>
 
             @if(!$lesson->manual_check)
-                <button class="btn" onclick="runTests()"> Проверить тесты </button>
+                <button class="btn border" onclick="runTests()"> Проверить тесты </button>
             @endif
 
             @if($lesson->manual_check)
-                <button class="btn" onclick="send()"> Отправить на проверку </button>
+                <button class="btn border" onclick="send()"> Отправить на проверку </button>
             @endif
         </div>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ваша страница</title>
+    <title>Модули</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         .card {
@@ -29,12 +29,12 @@
             <div class="card-header bg-dark text-white">
                 {{ $module->title }} <!-- Предполагается, что у модуля есть поле 'name' -->
             </div>
-            <div class="card-body ">
+            <div class="card-body .bg-light ">
                 <div class="row ">
-                    <div class="col-md-3">
+                    <div class="col-md-3 ">
                         <ul class="list-group ">
                             @foreach($module->lessons as $lesson)
-                                <a href="{{route('showLesson', ['id' => $lesson->id])}}" class="text-dark">{{ $lesson->title }}</a>
+                                <a href="{{route('showLesson', ['id' => $lesson->id])}}" class="text-dark bg">{{ $lesson->title }}</a>
                             @endforeach
                         </ul>
                     </div>
