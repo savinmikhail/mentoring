@@ -13,7 +13,6 @@ class Lesson extends Model
     use AsSource;
     use Chartable;
 
-
     protected $fillable =
         [
             'title',

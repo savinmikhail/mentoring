@@ -57,19 +57,26 @@ class ModuleListScreen extends Screen
         return [
             ModuleListTable::class,
             Layout::modal('createModule', CreateModule::class)->title('Создание модуля')->applyButton('Принять'),
-            Layout::modal('createModule', CreateModule::class),
+            Layout::modal('updateModule', CreateModule::class)->async('asyncGetModule')
+        ];
+    }
+
+    public function asyncGetModule(Module $module): array
+    {
+        return [
+            '$module' => $module,
         ];
     }
 
     public function createModule(ModuleRequest $request)
     {
+
         $module = $request->validationData();
         Module::create($module);
     }
 
-    public function updateModule(int $module_id, ModuleRequest $request)
+    public function updateModule(Module $module, ModuleRequest $request)
     {
-        $module = Module::find($module_id);
         $data = $request->validated();
 
         $module->update($data);

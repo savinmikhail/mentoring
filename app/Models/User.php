@@ -67,4 +67,18 @@ class User extends Authenticatable
         'updated_at',
         'created_at',
     ];
+
+    protected $appends = ['progress'];
+
+    public function getProgressAttribute()
+    {
+        $passedLessonsNumber = UserSolution::where('user_id', auth()->id())
+            ->where('passed', true)
+            ->count();
+        $allLessonsNumber = Lesson::query()->count();
+        if($passedLessonsNumber){
+            return $passedLessonsNumber/$allLessonsNumber * 100 . '%';
+        }
+        return '0%';
+    }
 }

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreignId('lesson_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->string('solution');
             $table->integer('attempts');
+            $table->boolean('passed')->default(false);
             $table->timestamps();
         });
     }

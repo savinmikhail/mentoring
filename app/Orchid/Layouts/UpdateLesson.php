@@ -6,7 +6,7 @@ use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Layouts\Rows;
 
-class UpdateOrder extends Rows
+class UpdateLesson extends Rows
 {
     /**
      * Used to create the title of a group of form elements.
@@ -24,8 +24,8 @@ class UpdateOrder extends Rows
     {
 
         return [
-                Input::make('input')->title('input'),
-                Input::make('output')->title('output'),
+                Input::make('title')->title('title'),
+//                Input::make('output')->title('output'),
         ];
     }
 }

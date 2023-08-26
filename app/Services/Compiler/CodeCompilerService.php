@@ -30,12 +30,19 @@ class CodeCompilerService implements CodeCompilerInterface
             if(empty($UserSolution)){
                 $UserSolution = new UserSolution();
             }
+            //попытки
             $UserSolution->attempts++;
-            $UserSolution->save();
 
             // Выполнение тестов
             $LessonsTest = new LessonsTest('');
             $testResult = $LessonsTest->testUserProvidedFunction($lessonId);
+
+            //запоминаем, что урок пройден
+            if($testResult)
+                $UserSolution->passed = true;
+
+            $UserSolution->save();
+
             $testResult = $testResult ? 'Tests passed' : 'Tests failed';
 
         } elseif ($action === "code") {
@@ -55,9 +62,9 @@ class CodeCompilerService implements CodeCompilerInterface
 
         return $responseData;
     }
-    public function storeUserSolution(int $lessonId, string $code)
+    public function storeUserSolution(int $lessonId, string $code) : bool
     {
-        $UserSolution = UserSolution::where('user_id', auth()->user()->id)->
+        $UserSolution = UserSolution::query()->where('user_id', auth()->user()->id)->
             where('lesson_id', $lessonId)->first();
         if(!$UserSolution){
             $UserSolution = new UserSolution();

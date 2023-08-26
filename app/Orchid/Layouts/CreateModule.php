@@ -8,6 +8,7 @@ use Orchid\Screen\Fields\Group;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Relation;
 use Orchid\Screen\Fields\Select;
+use Orchid\Screen\Fields\TextArea;
 use Orchid\Screen\Layouts\Rows;
 
 class CreateModule extends Rows
@@ -28,10 +29,8 @@ class CreateModule extends Rows
     {
         return [
             Input::make('id')->type('hidden'),
-            Group::make([
                 Input::make('title')->required()->title('Название модуля'),
-                Input::make('description')->required()->title('Описание модуля'),
-            ]),
+                TextArea::make('description')->required()->title('Описание модуля'),
 
         ];
     }

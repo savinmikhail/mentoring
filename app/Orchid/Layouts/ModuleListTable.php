@@ -35,10 +35,12 @@ class ModuleListTable extends Table
             TD::make('description', 'Описание'),
             TD::make('')->render(function (Module $module){
                 return ModalToggle::make('Редактировать')
-                    ->modal('createModule')
+                    ->modal('updateModule')
                     ->method('updateModule')
                     ->modalTitle('Редактирование модуля' .' '. $module->title)
-                    ->parameters(['module_id' => $module->id]);
+                    ->asyncParameters([
+                        'module' => $module->id
+                    ]);
             }),
             TD::make('')->render(function (Module $module) {
                 return Button::make('Удалить')

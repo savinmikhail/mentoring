@@ -9,6 +9,7 @@ class UserSolution extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id', 'lesson_id', 'solution'
+        'user_id', 'lesson_id', 'solution', 'attempts', 'passed'
     ];
+
 }

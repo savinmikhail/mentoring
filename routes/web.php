@@ -38,5 +38,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/lessons/{id}', [CompilerController::class, 'showLesson'])->name('showLesson');
     Route::get('/', [ModuleController::class, 'index'])->name('showModule');
     Route::post('/com', [CompilerController::class, 'compile'])->name('compile');
+
+    Route::get('user', [AuthController::class, 'user']);
 });
 

@@ -35,4 +35,8 @@ class AuthController extends Controller
             return back()->withErrors(['login_error' => 'Неправильный логин или пароль.']);
         }
     }
+    public  function User()
+    {
+        return response()->json(['data' => auth()->user()]);
+    }
 }

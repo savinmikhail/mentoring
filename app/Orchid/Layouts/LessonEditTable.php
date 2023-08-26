@@ -3,7 +3,9 @@
 namespace App\Orchid\Layouts;
 
 use App\Models\Lesson;
+use App\Models\Module;
 use Orchid\Screen\Actions\Button;
+use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Layouts\Table;
 use Orchid\Screen\TD;
 
@@ -37,6 +39,16 @@ class LessonEditTable extends Table
                     ->method('removeLesson')
                     ->parameters(['lesson_id' => $lesson->id])
                     ->icon('trash');
+            }),
+            TD::make('action')->render(function (Lesson $lesson){
+                return ModalToggle::make('Редактировать')
+                    ->modal('editLesson')
+                    ->method('updateLesson')
+                    ->modalTitle('Редактирование ' .' '. $lesson->title)
+                    ->asyncParameters([
+                        'lesson' => $lesson->id,
+//                        'module' => (Module::query()->find($lesson->module_id))->id
+                    ]);
             }),
         ];
     }
