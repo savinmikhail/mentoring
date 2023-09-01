@@ -46,8 +46,13 @@ class LessonEditTable extends Table
                     ->method('updateLesson')
                     ->modalTitle('Редактирование ' .' '. $lesson->title)
                     ->asyncParameters([
-                        'lesson' => $lesson->id,
-//                        'module' => (Module::query()->find($lesson->module_id))->id
+//                        'id' =>  $lesson['id'],
+//                        'title' => $lesson->title,
+//                        'text' => $lesson['text'],
+//                        'image' => $lesson['image'],
+//                        'code' => $lesson['code'],
+                    'lesson' => $lesson->id,
+                        'module' => Module::query()->find($lesson->module_id)
                     ]);
             }),
         ];

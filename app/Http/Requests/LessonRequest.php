@@ -22,11 +22,12 @@ class LessonRequest extends FormRequest
     public function rules(): array
     {
         return [
-           'title' => ['required'],
-           'text' => ['required'],
-            'image' => ['nullable', 'string'],
-            'code' => ['nullable', 'string'],
-            'module_id' => ['required'],
+             'id' => ['integer'],
+             'title' => ['required'],
+             'text' => ['required'],
+             'image' => ['nullable', 'string'],
+             'code' => ['nullable', 'string'],
+             'module_id' => ['required'],
         ];
     }
 }

@@ -31,10 +31,10 @@ class LessonEditScreen extends Screen
      */
     public function query(Module $module): iterable
     {
-//        $this->module = $module;
-//        $lesson = Lesson::query()->where('module_id', $this->module->id)->get();
-//
-//        $this->lesson = $lesson;
+        $this->module = $module;
+        $lesson = Lesson::query()->where('module_id', $this->module->id)->get();
+
+        $this->lesson = $lesson;
         return [
             'lesson' => Lesson::all()
         ];
@@ -47,8 +47,7 @@ class LessonEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'Уроки модуля - ';
-//        return 'Уроки модуля - ' . $this->module ? $this->module->title : '';
+        return 'Уроки модуля - ' . $this->module->title;
     }
 
     /**
@@ -73,7 +72,7 @@ class LessonEditScreen extends Screen
         return [
             LessonEditTable::class,
             Layout::modal('addLesson', Layout::rows([
-//                Input::make('module_id' )->type('hidden')->value($this->module->id),
+                Input::make('module_id' )->type('hidden')->value($this->module->id),
                 Input::make('title')->title('Название'),
                 SimpleMDE::make('text')->title('Текст'),
                 Picture::make('image')->title('Изображение'),
@@ -85,7 +84,7 @@ class LessonEditScreen extends Screen
                     Input::make('id' )->type('hidden'),
                     Input::make('module_id' )->type('hidden'),
 
-                     Input::make('title')->title('Название'),
+                    Input::make('title')->title('Название'),
                     SimpleMDE::make('text')->title('text'),
                     Picture::make('image')->title('image'),
                     Code::make('code')->title('code'),
@@ -95,10 +94,17 @@ class LessonEditScreen extends Screen
         ];
     }
 
-    public function asyncGetLesson(Lesson $lesson): array
+    public function asyncGetLesson(Lesson $lesson, Module $module): array
     {
+        $this->module = $module;
         return [
             'lesson' => $lesson,
+//            'id' =>  $id,
+//            'title' => $title,
+////            'text' => $text,
+////            'image' => $image,
+////            'code' => $code,
+//            'module_id' => $module_id,
         ];
     }
 
@@ -111,15 +117,14 @@ class LessonEditScreen extends Screen
 
     public function addLessonTest(LessonTestRequest $request, int $lesson_id)
     {
-
         $validatedData = $request->validated();
         LessonTest::create(array_merge($validatedData, ['lesson_id' => $lesson_id]));
     }
 
     public function updateLesson(LessonRequest $request)
     {
-//        $lesson = Lesson::find($request->input('id'))->update($request->validated());
-//        is_null($lesson) ?  Toast::info('Lesson успешно создан') : Toast::info('Lesson успешно изменен');
+        $lesson = Lesson::find($request->input('id'))->update($request->validated());
+        is_null($lesson) ?  Toast::info('Lesson успешно создан') : Toast::info('Lesson успешно изменен');
         Alert::info('Урок добавлен');
     }
 

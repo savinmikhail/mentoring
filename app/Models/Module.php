@@ -12,6 +12,8 @@ class Module extends Model
     use HasFactory;
     use AsSource;
     use Chartable;
+
+    protected $table = 'modules';
     protected $fillable =
         [
           'title',

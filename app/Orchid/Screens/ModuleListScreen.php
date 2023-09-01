@@ -6,6 +6,7 @@ use App\Http\Requests\ModuleRequest;
 use App\Models\Module;
 use App\Orchid\Layouts\CreateModule;
 use App\Orchid\Layouts\ModuleListTable;
+use App\Orchid\Layouts\UpdateModule;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Alert;
@@ -55,18 +56,24 @@ class ModuleListScreen extends Screen
     public function layout(): iterable
     {
         return [
-            ModuleListTable::class,
+            Layout::modal('editModule', UpdateModule::class)->async('asyncGetModule'),
             Layout::modal('createModule', CreateModule::class)->title('Создание модуля')->applyButton('Принять'),
-            Layout::modal('updateModule', CreateModule::class)->async('asyncGetModule')
+            ModuleListTable::class,
+
         ];
     }
 
-    public function asyncGetModule(Module $module): array
+
+    public function asyncGetModule(int $id ,$title, $description): array
     {
+
         return [
-            '$module' => $module,
+            'moduleId' => $id,
+            'title' => $title,
+            'description' => $description,
         ];
     }
+
 
     public function createModule(ModuleRequest $request)
     {
@@ -75,9 +82,11 @@ class ModuleListScreen extends Screen
         Module::create($module);
     }
 
-    public function updateModule(Module $module, ModuleRequest $request)
+    public function updateModule( ModuleRequest $request)
     {
         $data = $request->validated();
+
+        $module = Module::query()->find($data['id']);
 
         $module->update($data);
     }

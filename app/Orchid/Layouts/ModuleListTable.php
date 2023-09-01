@@ -33,16 +33,19 @@ class ModuleListTable extends Table
                 return '<a href="' . route('platform.lesson.show', ['module' => $module->id]) . '">' . $module->title . '</a>';
             }),
             TD::make('description', 'Описание'),
-            TD::make('')->render(function (Module $module){
+            TD::make('Редактировать')->render(function (Module $module){
                 return ModalToggle::make('Редактировать')
-                    ->modal('updateModule')
+                    ->modal('editModule')
                     ->method('updateModule')
-                    ->modalTitle('Редактирование модуля' .' '. $module->title)
-                    ->asyncParameters([
-                        'module' => $module->id
+                    ->modalTitle('Редактирование заказа' .' '. $module->title)
+                    ->asyncParameters( [
+                        'id' =>  $module['id'],
+                        'title' => $module['title'],
+                        'description' => $module['description'],
                     ]);
+
             }),
-            TD::make('')->render(function (Module $module) {
+            TD::make('Удалить')->render(function (Module $module) {
                 return Button::make('Удалить')
                     ->confirm('Вы уверены, что хотите удалить модуль?')
                     ->method('removeModule')

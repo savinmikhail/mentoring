@@ -3,10 +3,7 @@
 namespace App\Services\Compiler;
 
 use App\Contracts\Compiler\CodeCompilerInterface;
-use App\Models\Lesson;
-use App\Models\User;
 use App\Models\UserSolution;
-use Illuminate\Support\Facades\Auth;
 use Tests\Unit\LessonsTest;
 class CodeCompilerService implements CodeCompilerInterface
 {
@@ -25,7 +22,7 @@ class CodeCompilerService implements CodeCompilerInterface
         if ($action === "tests") {
 
             //save submit in bd
-            $UserSolution = UserSolution::where('user_id', auth()->user()->id)->
+            $UserSolution = UserSolution::where('user_id', auth()->id())->
                 where('lesson_id', $lessonId)->first();
             if(empty($UserSolution)){
                 $UserSolution = new UserSolution();
@@ -64,13 +61,13 @@ class CodeCompilerService implements CodeCompilerInterface
     }
     public function storeUserSolution(int $lessonId, string $code) : bool
     {
-        $UserSolution = UserSolution::query()->where('user_id', auth()->user()->id)->
+        $UserSolution = UserSolution::query()->where('user_id', auth()->id())->
             where('lesson_id', $lessonId)->first();
         if(!$UserSolution){
             $UserSolution = new UserSolution();
         }
         $UserSolution->lesson_id = $lessonId;
-        $UserSolution->user_id = auth()->user()->id;
+        $UserSolution->user_id = auth()->id();
         $UserSolution->solution = $code;
         return  $UserSolution->save();
     }
