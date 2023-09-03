@@ -10,7 +10,7 @@ class LessonsTest extends TestCase
     {
         $filePath = "/var/www/html/storage/logs/code.php";
         $outputFilePath = "/var/www/html/storage/logs/output.txt";
-        $lessonTests = LessonTest::find($lessonId)->all();
+        $lessonTests = LessonTest::query()->where('lesson_id', $lessonId)->get();
         $flag = false;
 
         foreach ($lessonTests as $lessonTest) {

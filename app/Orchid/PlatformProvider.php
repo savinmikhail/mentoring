@@ -40,7 +40,7 @@ class PlatformProvider extends OrchidServiceProvider
                 ->title('Пользователи'),
             Menu::make('Модули')
                 ->route('platform.module')
-                ->title('Заказы'),
+                ->title('Модули'),
 //            Menu::make('Get Started')
 //                ->icon('bs.book')
 //                ->title('Navigation')

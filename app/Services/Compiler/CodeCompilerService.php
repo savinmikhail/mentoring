@@ -5,6 +5,7 @@ namespace App\Services\Compiler;
 use App\Contracts\Compiler\CodeCompilerInterface;
 use App\Models\UserSolution;
 use Tests\Unit\LessonsTest;
+
 class CodeCompilerService implements CodeCompilerInterface
 {
     public function compileCode(string $code, int $lessonId, string $action): array
@@ -24,8 +25,10 @@ class CodeCompilerService implements CodeCompilerInterface
             //save submit in bd
             $UserSolution = UserSolution::where('user_id', auth()->id())->
                 where('lesson_id', $lessonId)->first();
-            if(empty($UserSolution)){
+            if (empty($UserSolution)) {
                 $UserSolution = new UserSolution();
+                $UserSolution->user_id = auth()->id();
+                $UserSolution->lesson_id = $lessonId;
             }
             //попытки
             $UserSolution->attempts++;
@@ -35,8 +38,10 @@ class CodeCompilerService implements CodeCompilerInterface
             $testResult = $LessonsTest->testUserProvidedFunction($lessonId);
 
             //запоминаем, что урок пройден
-            if($testResult)
+            if ($testResult){
                 $UserSolution->passed = true;
+                $UserSolution->solution = $code;
+            }
 
             $UserSolution->save();
 
@@ -44,11 +49,11 @@ class CodeCompilerService implements CodeCompilerInterface
 
         } elseif ($action === "code") {
             $testResult = '';
-        } elseif ($action === "send"){
+        } elseif ($action === "send") {
             $testResult = $this->storeUserSolution($lessonId, $code) ? 'Solution was saved' : 'Error occurred';
         }
 
-        if($testResult) {
+        if ($testResult) {
             $this->storeUserSolution($lessonId, $code);
         }
 
@@ -59,16 +64,17 @@ class CodeCompilerService implements CodeCompilerInterface
 
         return $responseData;
     }
-    public function storeUserSolution(int $lessonId, string $code) : bool
+
+    public function storeUserSolution(int $lessonId, string $code): bool
     {
         $UserSolution = UserSolution::query()->where('user_id', auth()->id())->
-            where('lesson_id', $lessonId)->first();
-        if(!$UserSolution){
+        where('lesson_id', $lessonId)->first();
+        if (!$UserSolution) {
             $UserSolution = new UserSolution();
         }
         $UserSolution->lesson_id = $lessonId;
         $UserSolution->user_id = auth()->id();
         $UserSolution->solution = $code;
-        return  $UserSolution->save();
+        return $UserSolution->save();
     }
 }

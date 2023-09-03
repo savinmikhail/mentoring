@@ -32,7 +32,10 @@ class ModuleListTable extends Table
             TD::make('title', 'Название')->render(function (Module $module) {
                 return '<a href="' . route('platform.lesson.show', ['module' => $module->id]) . '">' . $module->title . '</a>';
             }),
-            TD::make('description', 'Описание'),
+            TD::make('description', 'Описание')->render(function (Module $module){
+                $description = $module->description;
+                return substr($description, 0, 50). '...';
+            }),
             TD::make('Редактировать')->render(function (Module $module){
                 return ModalToggle::make('Редактировать')
                     ->modal('editModule')

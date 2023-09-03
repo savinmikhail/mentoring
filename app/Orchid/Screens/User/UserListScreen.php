@@ -11,9 +11,11 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Orchid\Platform\Models\User;
 use Orchid\Screen\Actions\Link;
+use Orchid\Screen\Fields\Select;
 use Orchid\Screen\Screen;
 use Orchid\Support\Facades\Layout;
 use Orchid\Support\Facades\Toast;
+use Orchid\Screen\Fields\Input;
 
 class UserListScreen extends Screen
 {
@@ -79,6 +81,15 @@ class UserListScreen extends Screen
 
             Layout::modal('asyncEditUserModal', UserEditLayout::class)
                 ->async('asyncGetUser'),
+            Layout::modal('editRole', Layout::rows(
+                [
+                    Select::make('role', ) ->options([
+                        'STUDENT'   => 'Студент',
+                        'ADMIN' => 'Админ',
+                        'USER' => 'User',
+                    ])->title('Роль')
+                ]
+            ))->async('asyncGetUser'),
         ];
     }
 
@@ -90,6 +101,18 @@ class UserListScreen extends Screen
         return [
             'user' => $user,
         ];
+    }
+
+    public function updateRole(Request $request, User $user)
+    {
+        $dto = $request->validate([
+            'role' => [
+                'required',
+                'string'
+            ]]);
+        $user->role = $dto['role'];
+        $user->save();
+        Toast::info(__('Роль изменена.'));
     }
 
     public function saveUser(Request $request, User $user): void

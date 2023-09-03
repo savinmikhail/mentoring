@@ -30,29 +30,27 @@ class LessonEditTable extends Table
     {
         return [
             TD::make('title' , 'Название'),
-            TD::make('text', 'Текст'),
-            TD::make('image', 'Изображение'),
+            TD::make('text', 'Контент')->render(function (Lesson $lesson){
+                $text = $lesson->text;
+                return substr($text, 0, 50). '...';
+            }),
             TD::make('code', 'Начальный код'),
-            TD::make('')->render(function (Lesson $lesson) {
+            TD::make('Удалить')->render(function (Lesson $lesson) {
                 return Button::make('Удалить')
                     ->confirm('Вы уверены, что хотите удалить урок?')
                     ->method('removeLesson')
                     ->parameters(['lesson_id' => $lesson->id])
                     ->icon('trash');
             }),
-            TD::make('action')->render(function (Lesson $lesson){
+            TD::make('Редактировать')->render(function (Lesson $lesson){
+                $module = Module::query()->find($lesson->module_id);
                 return ModalToggle::make('Редактировать')
                     ->modal('editLesson')
                     ->method('updateLesson')
                     ->modalTitle('Редактирование ' .' '. $lesson->title)
                     ->asyncParameters([
-//                        'id' =>  $lesson['id'],
-//                        'title' => $lesson->title,
-//                        'text' => $lesson['text'],
-//                        'image' => $lesson['image'],
-//                        'code' => $lesson['code'],
-                    'lesson' => $lesson->id,
-                        'module' => Module::query()->find($lesson->module_id)
+                        'lesson' => $lesson->id,
+                        'module' => $module->id
                     ]);
             }),
         ];

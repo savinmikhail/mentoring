@@ -75,7 +75,6 @@ class LessonEditScreen extends Screen
                 Input::make('module_id' )->type('hidden')->value($this->module->id),
                 Input::make('title')->title('Название'),
                 SimpleMDE::make('text')->title('Текст'),
-                Picture::make('image')->title('Изображение'),
                 Code::make('code')->title('Начальный код')->height('150px')->language('clike'),
             ]))->title('Добавление урока')->size(Modal::SIZE_LG),
 
@@ -86,7 +85,6 @@ class LessonEditScreen extends Screen
 
                     Input::make('title')->title('Название'),
                     SimpleMDE::make('text')->title('text'),
-                    Picture::make('image')->title('image'),
                     Code::make('code')->title('code'),
                 ]
             ))->async('asyncGetLesson'),
@@ -98,13 +96,11 @@ class LessonEditScreen extends Screen
     {
         $this->module = $module;
         return [
-            'lesson' => $lesson,
-//            'id' =>  $id,
-//            'title' => $title,
-////            'text' => $text,
-////            'image' => $image,
-////            'code' => $code,
-//            'module_id' => $module_id,
+            'id' =>  $lesson->id,
+            'title' => $lesson->title,
+            'text' => $lesson->text,
+            'code' => $lesson->code,
+            'module_id' => $lesson->module_id,
         ];
     }
 
@@ -124,8 +120,7 @@ class LessonEditScreen extends Screen
     public function updateLesson(LessonRequest $request)
     {
         $lesson = Lesson::find($request->input('id'))->update($request->validated());
-        is_null($lesson) ?  Toast::info('Lesson успешно создан') : Toast::info('Lesson успешно изменен');
-        Alert::info('Урок добавлен');
+        is_null($lesson) ?  Toast::info('Урок успешно создан') : Toast::info('Урок успешно изменен');
     }
 
     public function removeLesson(int $lesson_id)

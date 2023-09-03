@@ -57,6 +57,16 @@ class UserListLayout extends Table
                 ->align(TD::ALIGN_RIGHT)
                 ->sort(),
 
+            TD::make('Роли')->render(function (User $user){
+                return ModalToggle::make('Редактировать')
+                    ->modal('editRole')
+                    ->method('updateRole')
+                    ->modalTitle('Редактирование роли ' .' '. $user->role)
+                    ->asyncParameters([
+                        'user' => $user->id,
+                    ]);
+            }),
+
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
                 ->width('100px')
