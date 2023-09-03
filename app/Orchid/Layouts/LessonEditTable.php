@@ -3,6 +3,7 @@
 namespace App\Orchid\Layouts;
 
 use App\Models\Lesson;
+use App\Models\LessonTest;
 use App\Models\Module;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\ModalToggle;
@@ -51,6 +52,24 @@ class LessonEditTable extends Table
                     ->asyncParameters([
                         'lesson' => $lesson->id,
                         'module' => $module->id
+                    ]);
+            }),
+            TD::make('Добавить тесты')->render(function (Lesson $lesson){
+                $lessonTest = LessonTest::query()->where('lesson_id', $lesson->id)->first();
+                if(!$lessonTest){
+                    $lessonTest = LessonTest::create(['lesson_id' => $lesson->id]);
+                }
+                $module = Module::query()->find($lesson->module_id);
+
+                return ModalToggle::make('Добавить тесты')
+                    ->modal('addTests')
+                    ->method('addTests')
+                    ->modalTitle('Добавление тестов')
+                    ->asyncParameters([
+                        'lesson' => $lesson->id,
+                        'lessonTest' => $lessonTest->id,
+                        'module' => $module->id
+
                     ]);
             }),
         ];

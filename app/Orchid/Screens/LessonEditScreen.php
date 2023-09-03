@@ -8,6 +8,7 @@ use App\Models\Lesson;
 use App\Models\LessonTest;
 use App\Models\Module;
 use App\Orchid\Layouts\LessonEditTable;
+use Illuminate\Http\Request;
 use Orchid\Screen\Fields\Picture;
 use Orchid\Screen\Fields\Code;
 use Orchid\Screen\Fields\SimpleMDE;
@@ -89,9 +90,39 @@ class LessonEditScreen extends Screen
                 ]
             ))->async('asyncGetLesson'),
 
+            Layout::modal('addTests', Layout::rows(
+                [
+                    Input::make('id' )->type('hidden'),
+                    Input::make('lesson_id' )->type('hidden'),
+
+                    Input::make('input')->title('Input'),
+                    Input::make('output')->title('Output'),
+                ]
+            ))->async('asyncAddTests'),
         ];
     }
 
+    public function asyncAddTests(Lesson $lesson, LessonTest $lessonTest, Module $module): array
+    {
+        $this->module = $module;
+        return [
+            'id' =>  $lessonTest->id,
+            'lesson_id' => $lesson->id,
+            'input' => $lessonTest->input,
+            'output' => $lessonTest->output,
+        ];
+    }
+
+    public function addTests(Request $request)
+    {
+        $lessonTest = LessonTest::find($request->input('id'));
+        if($lessonTest){
+            $lessonTest->update($request->all());
+            Toast::info('Тест успешно изменен');
+        } else {
+            Toast::info('Ошибка');
+        }
+    }
     public function asyncGetLesson(Lesson $lesson, Module $module): array
     {
         $this->module = $module;
