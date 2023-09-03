@@ -5,6 +5,7 @@ namespace App\Orchid\Layouts;
 use App\Models\Lesson;
 use App\Models\LessonTest;
 use App\Models\Module;
+use App\Models\UserSolution;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Actions\ModalToggle;
 use Orchid\Screen\Layouts\Table;
@@ -30,7 +31,9 @@ class LessonEditTable extends Table
     protected function columns(): iterable
     {
         return [
-            TD::make('title' , 'Название'),
+            TD::make('title' , 'Название')->render(function (Lesson $lesson) {
+                return '<a href="' . route('platform.userSolution.show', ['lessonId' => $lesson->id]) . '">' . "$lesson->title" . '</a>';
+            }),
             TD::make('text', 'Контент')->render(function (Lesson $lesson){
                 $text = $lesson->text;
                 return substr($text, 0, 50). '...';

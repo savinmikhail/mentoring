@@ -77,7 +77,8 @@ class User extends Authenticatable
             ->count();
         $allLessonsNumber = Lesson::query()->count();
         if($passedLessonsNumber){
-            return $passedLessonsNumber/$allLessonsNumber * 100 . '%';
+            $res = round($passedLessonsNumber/$allLessonsNumber, 4);
+            return $res * 100 . '%';
         }
         return '0%';
     }

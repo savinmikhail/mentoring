@@ -9,7 +9,6 @@ use App\Models\LessonTest;
 use App\Models\Module;
 use App\Orchid\Layouts\LessonEditTable;
 use Illuminate\Http\Request;
-use Orchid\Screen\Fields\Picture;
 use Orchid\Screen\Fields\Code;
 use Orchid\Screen\Fields\SimpleMDE;
 use Orchid\Screen\Layouts\Modal;

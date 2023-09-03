@@ -40,9 +40,8 @@ class CodeCompilerService implements CodeCompilerInterface
             //запоминаем, что урок пройден
             if ($testResult){
                 $UserSolution->passed = true;
-                $UserSolution->solution = $code;
             }
-
+            $UserSolution->solution = $code;
             $UserSolution->save();
 
             $testResult = $testResult ? 'Tests passed' : 'Tests failed';

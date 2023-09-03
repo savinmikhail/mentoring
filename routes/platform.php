@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Orchid\Screens\CheckSolutionsScreen;
 use App\Orchid\Screens\Examples\ExampleActionsScreen;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
@@ -72,6 +73,8 @@ Route::screen('users', UserListScreen::class)
         ->parent('platform.index')
         ->push(__('Users'), route('platform.systems.users')));
 
+Route::screen('userSolution', CheckSolutionsScreen::class)
+    ->name('platform.userSolution.show');
 //// Platform > System > Roles > Role
 //Route::screen('roles/{role}/edit', RoleEditScreen::class)
 //    ->name('platform.systems.roles.edit')
