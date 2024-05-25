@@ -41,4 +41,3 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('user', [AuthController::class, 'user']);
 });
-

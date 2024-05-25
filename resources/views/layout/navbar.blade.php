@@ -11,7 +11,7 @@
     <style>
         body {
             /* Установите фоновое изображение */
-            background-image: url('https://static.tildacdn.com/tild6235-6535-4332-b137-616435626434/2222.svg');
+            /*background-image: url('https://static.tildacdn.com/tild6235-6535-4332-b137-616435626434/2222.svg');*/
             /*background-image: url('https://mir-s3-cdn-cf.behance.net/project_modules/fs/74943893890387.5e70ade47b152.png');*/
             /* Настройте свойства фона */
             background-size: cover; /* Настройте, как изображение покрывает фон */

@@ -57,15 +57,7 @@ class UserListLayout extends Table
                 ->align(TD::ALIGN_RIGHT)
                 ->sort(),
 
-            TD::make('Роли')->render(function (User $user){
-                return ModalToggle::make('Редактировать')
-                    ->modal('editRole')
-                    ->method('updateRole')
-                    ->modalTitle('Редактирование роли ' .' '. $user->role)
-                    ->asyncParameters([
-                        'user' => $user->id,
-                    ]);
-            }),
+            TD::make('last_seen', __('Был в сети')),
 
             TD::make(__('Actions'))
                 ->align(TD::ALIGN_CENTER)
@@ -73,10 +65,9 @@ class UserListLayout extends Table
                 ->render(fn (User $user) => DropDown::make()
                     ->icon('bs.three-dots-vertical')
                     ->list([
-
-                        Link::make(__('Edit'))
-                            ->route('platform.systems.users.edit', $user->id)
-                            ->icon('bs.pencil'),
+//                        Link::make(__('Edit'))
+//                            ->route('platform.systems.users.edit', $user->id)
+//                            ->icon('bs.pencil'),
 
                         Button::make(__('Delete'))
                             ->icon('bs.trash3')
@@ -84,6 +75,14 @@ class UserListLayout extends Table
                             ->method('remove', [
                                 'id' => $user->id,
                             ]),
+                        ModalToggle::make('Выбрать роль')
+                            ->modal('editRole')
+                            ->method('updateRole')
+                            ->modalTitle('Редактирование роли ' .' '. $user->role)
+                            ->asyncParameters([
+                                'user' => $user->id,
+                            ])
+                            ->icon('bs.pencil'),
                     ])),
         ];
     }
